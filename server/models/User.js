@@ -35,6 +35,13 @@ User.init(
                 len: [4]
             }
         },
+        quotes_id: {
+            type: DataTypes.INTEGER,
+            references: {
+                model: 'quotes',
+                key: 'id'
+            }
+        },
         dark_mode: {
             type: DataTypes.BOOLEAN,
             allowNull: false
