@@ -5,4 +5,9 @@ User.hasMany(Quotes, {
     foreignKey: 'quotes_id'
 })
 
+Quotes.hasMany(User, {
+    foreignKey: 'quotes_id'
+})
+
+
 module.exports = { User, Quotes}
