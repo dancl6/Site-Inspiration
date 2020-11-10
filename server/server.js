@@ -20,7 +20,7 @@ if(process.env.JAWSDB_URL) {
   cookieVar = process.env.DB_COOKIE;
 }
 
-
+cookieVar = "hellothere"
 const sess = {
     secret: cookieVar,
     cookie: {
@@ -40,7 +40,7 @@ app.use(session(sess));
 // initialize passport, use passport session
 app.use(passport.initialize());
 app.use(passport.session());
-
+console.log("Secret is :", cookieVar)
 app.use(routes);
 
 sequelize.sync({ force: true }).then(() => {
