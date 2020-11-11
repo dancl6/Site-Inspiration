@@ -58,4 +58,4 @@ Quotes.init(
     }
 );
 
-module.exports = Quotes
+module.exports = Quotes;

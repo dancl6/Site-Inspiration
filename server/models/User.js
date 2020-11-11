@@ -42,10 +42,10 @@ User.init(
                 key: 'id'
             }
         },
-        dark_mode: {
-            type: DataTypes.BOOLEAN,
-            allowNull: false
-        }
+        // dark_mode: {
+        //     type: DataTypes.BOOLEAN,
+        //     allowNull: false
+        // }
     },
     {
         hooks: {
@@ -67,4 +67,4 @@ User.init(
     }
 );
 
-module.exports = User
+module.exports = User;
