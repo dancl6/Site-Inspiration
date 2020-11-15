@@ -20,7 +20,7 @@ if(process.env.JAWSDB_URL) {
   cookieVar = process.env.DB_COOKIE;
 }
 
-cookieVar = "hellothere"
+// cookieVar = "hellothere"
 const sess = {
     secret: cookieVar,
     cookie: {
