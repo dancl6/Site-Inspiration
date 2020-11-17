@@ -49,7 +49,7 @@ router.post('/', (req, res) => {
         username: req.body.username,
         email: req.body.email,
         password: req.body.password,
-        dark_mode: false
+        quotes_id: req.body.quotes_id
     })
     .then(dbUserData => res.json(dbUserData))
     .catch(err => res.status(500).json(err));
