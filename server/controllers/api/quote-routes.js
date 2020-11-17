@@ -1,14 +1,14 @@
 const router = require('express').Router();
-const { Category, Product } = require('../../models');
+const { Quotes, User } = require('../../models');
 
 //GET all categories
 router.get('/', (req, res) => {
     Quotes.findAll({
-        attributes: ['id', 'category_name'],
-        include: {
-            model: Product,
-            attributes: ['id','product_name', 'price']
-        }
+        // attributes: ['id', 'category_name'],
+        // include: {
+        //     model: Product,
+        //     attributes: ['id','product_name', 'price']
+        // }
     })
     .then(dbCatData => res.json(dbCatData))
     .catch(err => res.status(500).json(err));
@@ -38,8 +38,10 @@ router.get('/:id', (req, res) => {
 //POST new category
 router.post('/', (req, res) => {
     Quotes.create({
-        category_name: req.body.category_name
-    })
+        author: req.body.author,
+        quote: req.body.quote,
+        reason: req.body.reason
+       })
     .then(dbCatData => res.json(dbCatData))
     .catch(err => res.status(500).json(err));
 });
