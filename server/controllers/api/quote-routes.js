@@ -38,7 +38,7 @@ router.get('/:id', (req, res) => {
 //POST new category
 router.post('/', (req, res) => {
     Quotes.create({
-        author: req.body.author,
+        author:  req.body.author,
         quote: req.body.quote,
         reason: req.body.reason
        })
