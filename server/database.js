@@ -22,3 +22,4 @@ const db = mysql.createConnection({
 
 // create variables for selecting from database 
 const rolesAll = `SELECT * FROM roles`;
+
