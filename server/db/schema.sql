@@ -23,6 +23,7 @@ CREATE TABLE quotes (
   id INTEGER PRIMARY KEY AUTO_INCREMENT,
   author VARCHAR(30),
   quote VARCHAR(30),
+  reference VARCHAR(30),
   reason_id INTEGER,
   users_id INTEGER,
   CONSTRAINT fk_reason FOREIGN KEY (reason_id) REFERENCES reason(id) ON DELETE SET NULL,
