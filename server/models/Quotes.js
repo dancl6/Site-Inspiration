@@ -29,15 +29,10 @@ Quotes.init(
         },
         user_id: {
             type: DataTypes.INTEGER,
-            allowNull: false
-            // references: {
-            //     model: 'user',
-            //     key: 'id'
-            // }
-        },
-        quotes_id: {
-            type: DataTypes.INTEGER,
-            allowNull: false
+            references: {
+                model: 'user',
+                key: 'id'
+            }
         },
         reason_id: {
             type: DataTypes.INTEGER,

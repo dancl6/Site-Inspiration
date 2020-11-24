@@ -19,7 +19,11 @@ Reason.init(
             type: DataTypes.STRING,
             allowNull: false,
             unique: true
-        }
+        },
+        // quotes_id: {
+        //     type: DataTypes.INTEGER,
+        //     allowNull: false
+        // }
     },
     {
         sequelize,
