@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { Quotes, User } = require('../../models');
 
-//GET all categories
+//GET all quotes
 router.get('/', (req, res) => {
     Quotes.findAll({
         // attributes: ['id', 'category_name'],
@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
     .catch(err => res.status(500).json(err));
 });
 
-//GET single category
+//GET single quote
 router.get('/:id', (req, res) => {
     Quotes.findOne({
         where: {
@@ -35,18 +35,20 @@ router.get('/:id', (req, res) => {
     .catch(err => res.status(500).json(err));
 });
 
-//POST new category
+//POST new quote
 router.post('/', (req, res) => {
     Quotes.create({
         author:  req.body.author,
         quote: req.body.quote,
-        reason: req.body.reason
+        reference: req.body.reference,
+        user_id: req.body.user_id,
+        reason_id: req.body.reason_id
        })
     .then(dbCatData => res.json(dbCatData))
     .catch(err => res.status(500).json(err));
 });
 
-//PUT update category
+//PUT update quote
 router.put('/:id', (req, res) => {
     Quotes.update(req.body, {
         where: {
@@ -63,7 +65,7 @@ router.put('/:id', (req, res) => {
     .catch(err => res.status(500).json(err));
 });
 
-//DELETE category
+//DELETE quote
 router.delete('/:id', (req, res) => {
     Quotes.destroy({
         where: {

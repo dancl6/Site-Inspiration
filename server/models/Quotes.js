@@ -23,12 +23,28 @@ Quotes.init(
             //     isDecimal: true
             // }
         },
-        reason: {
+        reference: {
             type: DataTypes.STRING,
-            allowNull: false,
-            // validate: {
-            //     isNumeric: true
+            allowNull: false
+        },
+        user_id: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+            // references: {
+            //     model: 'user',
+            //     key: 'id'
             // }
+        },
+        quotes_id: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
+        reason_id: {
+            type: DataTypes.INTEGER,
+            references: {
+                model: 'reason',
+                key: 'id'
+            }
         },
         // image: {
         //     type: DataTypes.STRING,

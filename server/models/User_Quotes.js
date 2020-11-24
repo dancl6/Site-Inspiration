@@ -8,12 +8,12 @@ User_Quotes.init(
     {
       id: {
         type: DataTypes.INTEGER,
-        allowNull: false,
         primaryKey: true,
         autoIncrement: true
       },
       user_id: {
         type: DataTypes.INTEGER,
+        allowNull: false,
         references: {
           model: 'user',
           key: 'id'
@@ -21,6 +21,7 @@ User_Quotes.init(
       },        
       quotes_id: {
       type: DataTypes.INTEGER,
+      allowNull: false,
       references: {
         model: 'quotes',
         key: 'id'
@@ -29,6 +30,7 @@ User_Quotes.init(
     },
     {
       sequelize,
+      timestamps: false,
       freezeTableName: true,
       underscored: true,
       modelName: 'user_quotes'

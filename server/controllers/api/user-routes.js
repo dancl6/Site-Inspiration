@@ -48,8 +48,8 @@ router.post('/', (req, res) => {
     User.create({
         username: req.body.username,
         email: req.body.email,
-        password: req.body.password,
-        quotes_id: req.body.quotes_id
+        password: req.body.password
+        // quotes_id: req.body.quotes_id
     })
     .then(dbUserData => res.json(dbUserData))
     .catch(err => res.status(500).json(err));
