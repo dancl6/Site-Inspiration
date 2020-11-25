@@ -42,7 +42,11 @@ router.post('/', (req, res) => {
         quote: req.body.quote,
         reference: req.body.reference,
         user_id: req.body.user_id,
-        reason_id: req.body.reason_id
+        reason_id: req.body.reason_id,
+        include: {
+            model: 'user',
+            attributes: ['user_id'],
+        }
        })
     .then(dbCatData => res.json(dbCatData))
     .catch(err => res.status(500).json(err));
