@@ -13,7 +13,6 @@ User_Quotes.init(
       },
       user_id: {
         type: DataTypes.INTEGER,
-        allowNull: false,
         references: {
           model: 'user',
           key: 'id'
@@ -21,7 +20,6 @@ User_Quotes.init(
       },        
       quotes_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
       references: {
         model: 'quotes',
         key: 'id'

@@ -1,14 +1,16 @@
 const router = require('express').Router();
 const { Quotes, User } = require('../../models');
+const User_Quotes = require('../../models/User_Quotes');
 
 //GET all quotes
 router.get('/', (req, res) => {
     Quotes.findAll({
         // attributes: ['id', 'category_name'],
         // include: {
-        //     model: Product,
-        //     attributes: ['id','product_name', 'price']
-        // }
+        //     model: User,
+        // },
+    
+        
     })
     .then(dbCatData => res.json(dbCatData))
     .catch(err => res.status(500).json(err));
@@ -41,25 +43,32 @@ router.post('/', (req, res) => {
         author:  req.body.author,
         quote: req.body.quote,
         reference: req.body.reference,
-        user_id: req.body.user_id,
         reason_id: req.body.reason_id,
+        userIds: req.body.userIds,
         include: {
-            model: 'user',
+            model: 'user_quotes',
             attributes: ['user_id'],
         }
        })
-    .then(dbCatData => {
-        if (req.body.user_id.length) {
-            const userIdArr = req.body.user_id.map((user_id_map) => {
+    .then((quote) => {
+        if (req.body.userIds.length) {
+            const userIdArr = req.body.userIds.map((user__id) => {
                 return {
-                    
+                    quote_id: quote.id,
+                    user__id,
                 }
-            }
-            )
+            })
+            return User_Quotes.bulkCreate(userIdArr);
         }
+        // if no user id, just respond
+        res.status(200).json(quote);
     })
+    .then((userIds) => res.status(200).json(userIds))
     // } res.json(dbCatData))
-    .catch(err => res.status(500).json(err));
+    .catch(err =>{
+        console.log(err);
+        res.status(500).json(err);
+    })
 });
 
 //PUT update quote
