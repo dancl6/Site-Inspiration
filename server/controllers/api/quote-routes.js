@@ -48,7 +48,17 @@ router.post('/', (req, res) => {
             attributes: ['user_id'],
         }
        })
-    .then(dbCatData => res.json(dbCatData))
+    .then(dbCatData => {
+        if (req.body.user_id.length) {
+            const userIdArr = req.body.user_id.map((user_id_map) => {
+                return {
+                    
+                }
+            }
+            )
+        }
+    })
+    // } res.json(dbCatData))
     .catch(err => res.status(500).json(err));
 });
 
