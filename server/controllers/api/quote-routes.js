@@ -7,10 +7,10 @@ router.get('/', (req, res) => {
         // attributes: ['id', 'category_name'],
         include: [
         {
-            model: User, as: 'user-and-quotes'
+            model: Reason
         },
         {
-            model: Reason
+            model: User
         }
     ]
     
@@ -57,14 +57,18 @@ router.post('/', (req, res) => {
             attributes: ['user_id'],
         }
        })
-        .then((quote) => {
+        .then((quotes) => {
             if (req.body.userIds.length) {
             const userIdArr = req.body.userIds.map((user_id) => {
+                console.log("quote id is :", quotes.id)
+                console.log("user_id is :", user_id)
+
                 return {
-                    quote_id: quote.id,
+                    quotes_id: quotes.id,
                     user_id,
                 }
             });
+            console.log("userIdArr is :", userIdArr)
             return User_Quotes.bulkCreate(userIdArr);
         }
         // if no user id, just respond
@@ -74,7 +78,7 @@ router.post('/', (req, res) => {
     // } res.json(dbCatData))
     .catch(err =>{
         console.log(err);
-        res.status(500).json(err);
+        res.status(400).json(err);
     })
 });
 
