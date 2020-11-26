@@ -32,4 +32,4 @@ Reason.hasMany(Quotes, {
 });
 
 
-module.exports = { User, Quotes, Reason}
+module.exports = { User, Quotes, Reason, User_Quotes}

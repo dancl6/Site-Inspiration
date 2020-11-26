@@ -1,19 +1,26 @@
 const router = require('express').Router();
-const { Quotes, User } = require('../../models');
-const User_Quotes = require('../../models/User_Quotes');
+const { Quotes, User, User_Quotes, Reason } = require('../../models');
 
 //GET all quotes
 router.get('/', (req, res) => {
     Quotes.findAll({
         // attributes: ['id', 'category_name'],
-        // include: {
-        //     model: User,
-        // },
+        include: [
+        {
+            model: User, as: 'user-and-quotes'
+        },
+        {
+            model: Reason
+        }
+    ]
     
         
     })
-    .then(dbCatData => res.json(dbCatData))
-    .catch(err => res.status(500).json(err));
+    .then(dbQuotesData => res.json(dbQuotesData))
+    .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+    })
 });
 
 //GET single quote
@@ -50,14 +57,14 @@ router.post('/', (req, res) => {
             attributes: ['user_id'],
         }
        })
-    .then((quote) => {
-        if (req.body.userIds.length) {
-            const userIdArr = req.body.userIds.map((user__id) => {
+        .then((quote) => {
+            if (req.body.userIds.length) {
+            const userIdArr = req.body.userIds.map((user_id) => {
                 return {
                     quote_id: quote.id,
-                    user__id,
+                    user_id,
                 }
-            })
+            });
             return User_Quotes.bulkCreate(userIdArr);
         }
         // if no user id, just respond
