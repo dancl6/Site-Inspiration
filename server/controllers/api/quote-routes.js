@@ -5,12 +5,14 @@ const { Quotes, User, User_Quotes, Reason } = require('../../models');
 router.get('/', (req, res) => {
     Quotes.findAll({
         // attributes: ['id', 'category_name'],
+
         include: [
         {
             model: Reason
         },
         {
-            model: User
+            model: User,
+            attributes: { exclude: ['password']},
         }
     ]
     
