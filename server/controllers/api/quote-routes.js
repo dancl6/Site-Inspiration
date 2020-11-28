@@ -5,7 +5,6 @@ const { Quotes, User, User_Quotes, Reason } = require('../../models');
 router.get('/', (req, res) => {
     Quotes.findAll({
         // attributes: ['id', 'category_name'],
-
         include: [
         {
             model: Reason
@@ -74,7 +73,7 @@ router.post('/', (req, res) => {
             return User_Quotes.bulkCreate(userIdArr);
         }
         // if no user id, just respond
-        res.status(200).json(quote);
+        res.status(200).json(quotes);
     })
     .then((userIds) => res.status(200).json(userIds))
     // } res.json(dbCatData))
@@ -88,17 +87,45 @@ router.post('/', (req, res) => {
 router.put('/:id', (req, res) => {
     Quotes.update(req.body, {
         where: {
-            id: req.params.id
-        }
+            id: req.params.id,
+        },
     })
-    .then(dbCatData => {
-        if (!dbCatData) {
-            res.status(400).json({ message: 'No category found with this id' })
-            return
-        }
-        res.json(dbCatData)
+    .then((product) => {
+      // find all associated tags from ProductTag
+      console.log("req.params.id is :", req.params.id)
+      return User_Quotes.findAll({ where: { quotes_id: req.params.id } });
     })
-    .catch(err => res.status(500).json(err));
+    .then((userQuotes) => {
+        // get list of current tag_ids
+        console.log("userQuotes is :", userQuotes)
+        // console.log("userIds is :", userIds)
+        // console.log("user_id is : ", user_id)
+        const userQuoteIds = userQuotes.map(({ user_id }) => user_id);
+        // create filtered list of new tag_ids
+        const newUserQuotes = req.body.userIds
+          .filter((user_id) => !userQuoteIds.includes(user_id))
+          .map((user_id) => {
+            return {
+              quotes_id: req.params.id,
+              user_id,
+            };
+          });
+        // figure out which ones to remove
+        const userQuotesToRemove = userQuotes
+          .filter(({ user_id }) => !req.body.userIds.includes(user_id))
+          .map(({ id }) => id);
+  
+        // run both actions
+        return Promise.all([
+          User_Quotes.destroy({ where: { id: userQuotesToRemove } }),
+          User_Quotes.bulkCreate(newUserQuotes),
+        ]);
+      })
+      .then((updatedUserQuotes) => res.json(updatedUserQuotes))
+      .catch((err) => {
+        console.log(err);
+        res.status(400).json(err);
+      });
 });
 
 //DELETE quote
