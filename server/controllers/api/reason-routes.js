@@ -6,26 +6,52 @@ const isAuth = require('../../utils/middleware/isAuth');
 // GET all reasons
 router.get('/', (req, res) => {
     Reason.findAll({
-        // attributes: ['id', 'category_name'],
-        // include: {
-        //     model: Product,
-        //     attributes: ['id','product_name', 'price']
-        // }
     })
-    .then(dbCatData => res.json(dbCatData))
+    .then(reasonData => res.json(reasonData))
     .catch(err => res.status(500).json(err));
 });
 
-//POST new quote
+//POST new reason
 router.post('/', (req, res) => {
     Reason.create({
         reason_tag:  req.body.reason_tag,
-        // quote: req.body.quote,
-        // reference: req.body.reference,
-        // user_id: req.body.user_id,
-        // reason_id: req.body.reason_id
        })
-    .then(dbCatData => res.json(dbCatData))
+    .then(reasonData => res.json(reasonData))
+    .catch(err => res.status(500).json(err));
+});
+
+//PUT update reason
+router.put('/:id', (req, res) => {
+    // update a category by its `id` value
+    Reason.update(req.body, {
+      where: {
+        id: req.params.id,
+      }
+    }).then(reasonData => {
+      res.json(reasonData)
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    })
+
+  
+  });
+
+//DELETE reason
+router.delete('/:id', (req, res) => {
+    Reason.destroy({
+        where: {
+            id: req.params.id
+        }
+    })
+    .then(reasonData => {
+        if (!reasonData) {
+            res.status(400).json({ message: 'No category found with this id' })
+            return
+        }
+        res.json(reasonData)
+    })
     .catch(err => res.status(500).json(err));
 });
 

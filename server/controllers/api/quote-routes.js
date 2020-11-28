@@ -90,7 +90,7 @@ router.put('/:id', (req, res) => {
             id: req.params.id,
         },
     })
-    .then((product) => {
+    .then((quote) => {
       // find all associated tags from ProductTag
       console.log("req.params.id is :", req.params.id)
       return User_Quotes.findAll({ where: { quotes_id: req.params.id } });
@@ -135,12 +135,12 @@ router.delete('/:id', (req, res) => {
             id: req.params.id
         }
     })
-    .then(dbCatData => {
-        if (!dbCatData) {
+    .then(quoteData => {
+        if (!quoteData) {
             res.status(400).json({ message: 'No category found with this id' })
             return
         }
-        res.json(dbCatData)
+        res.json(Data)
     })
     .catch(err => res.status(500).json(err));
 });
