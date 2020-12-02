@@ -43,15 +43,16 @@ const connection = mysql.createConnection({
 host: 'localhost',
 user:'root',
 password:'mysql',//password of your mysql db
-database:'simple-react-sql-db'
+database:'simple_react_sql_db'
 });
 
 connection.connect(function(err){
 (err)? console.log(err+'+++++++++++++++//////////'): console.log('connection********');
 });
 
-require('./routes/user-routes')(app, connection);
-require('./routes/reason-routes')(app, connection);
-require('./routes/quotes-routes')(app, connection);
+// require('./routes/user-routes')(app, connection);
+// require('./routes/reason-routes')(app, connection);
+// require('./routes/quotes-routes')(app, connection);
+require('./routes/html-routes')(app, connection);
 
 module.exports = app;
