@@ -145,4 +145,14 @@ router.delete('/:id', (req, res) => {
     .catch(err => res.status(500).json(err));
 });
 
-module.exports = router
+// module.exports = router
+
+module.exports = function(app, connection) {
+    // if no matching route is found default to index.html
+    app.get('/', function(req, res) {
+        // res.send('Hello from simple react project');
+        connection.query('SELECT * FROM "simple_react_sql_db".user;', function(err, data) {
+            (err)?res.send(err):res.json({users: data});
+        });
+    });
+}
