@@ -15,14 +15,6 @@ Quotes.belongsToMany(User, {
     foreignKey: 'quotes_id'
 })
 
-// User.hasMany(Quotes, {
-//     foreignKey: 'user_id'
-// });
-
-// Quotes.belongsTo(User, {
-//    foreignKey: "user_id" 
-// });
-
 Quotes.belongsTo(Reason, {
     foreignKey: 'reason_id'
 });
