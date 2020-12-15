@@ -1,4 +1,5 @@
 const express = require('express');
+const bodyParser = require("body-parser");
 const sequelize = require('./config/connection');
 const session = require('express-session');
 const routes = require('./controllers');
@@ -34,6 +35,7 @@ const sess = {
     })
   };
 
+// app.use(bodyParser.json());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -44,6 +46,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 console.log("Secret is :", cookieVar)
 app.use(routes);
+
+// database
+const db = require("./models");
+const Role = db.role;
 
 sequelize.sync({ force: false }).then(() => {
     app.listen(PORT, () => console.log(`Now listening on port ${PORT}!`));
