@@ -52,7 +52,12 @@ router.post('/', (req, res) => {
         password: req.body.password
         // quotes_id: req.body.quotes_id
     })
-    .then(dbUserData => res.json(dbUserData))
+   
+    .then(dbUserData => { 
+        console.log("id  is: ", dbUserData.id)
+        // signToken(req.body.username, req.body.email, req.body.id)
+       const token = signToken(dbUserData.username, dbUserData.email, dbUserData.id)
+        res.json(dbUserData, token)})
     .catch(err => res.status(500).json(err));
     });
 
