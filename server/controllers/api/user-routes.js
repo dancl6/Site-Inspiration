@@ -53,12 +53,19 @@ router.post('/', (req, res) => {
         // quotes_id: req.body.quotes_id
     })
    
-    .then(dbUserData => { 
+    .then(dbUserData =>{
         console.log("id  is: ", dbUserData.id)
         // signToken(req.body.username, req.body.email, req.body.id)
        const token = signToken(dbUserData.username, dbUserData.email, dbUserData.id)
-        res.json(dbUserData, token)})
-    .catch(err => res.status(500).json(err));
+       console.log("token is :", token)
+       let userArray = [dbUserData, token]
+    
+        // res.json(userArray)})
+        res.json({
+            userArray
+        })
+        })
+        .catch(err => res.status(500).json(err));
     });
 
 // Update user table with dark mode toggle preference. Successfully updates value in table, but future implementation needed to retreive value from table and load into localstorage on login
