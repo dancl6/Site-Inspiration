@@ -37,6 +37,25 @@ router.get('/:id', (req, res) => {
     .catch(err => res.status(500).json(err));
 });
 
+//GET single user and sign token then return token
+router.get('/:id/token', (req, res) => {
+    User.findOne({
+        where: {
+            id: req.params.id
+        },
+        attributes: { exclude: ['password'] }
+    })
+    .then(dbUserData => {
+        const token = signToken(dbUserData.username, dbUserData.email, dbUserData.id)
+        if (!dbUserData) {
+            res.status(400).json({ message: 'No user found with this id' });
+            return
+        }
+        res.json(token)
+    })
+    .catch(err => res.status(500).json(err));
+});
+
 // use passport to authenticate login. if invalid credentials, passport will return unauthorized
 router.post('/login', passport.authenticate('local'), function(req, res) {
     res.render('homepage', {
@@ -62,7 +81,8 @@ router.post('/', (req, res) => {
     
         // res.json(userArray)})
         res.json({
-            userArray
+            dbUserdata: dbUserData,
+            token: token
         })
         })
         .catch(err => res.status(500).json(err));
