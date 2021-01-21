@@ -75,14 +75,13 @@ router.post('/', (req, res) => {
     .then(dbUserData =>{
         console.log("id  is: ", dbUserData.id)
         // signToken(req.body.username, req.body.email, req.body.id)
-       const token = signToken(dbUserData.username, dbUserData.email, dbUserData.id)
+    //    const token = signToken(dbUserData.username, dbUserData.email, dbUserData.id)
        console.log("token is :", token)
-       let userArray = [dbUserData, token]
+    //    let userArray = [dbUserData, token]
     
         // res.json(userArray)})
         res.json({
-            dbUserdata: dbUserData,
-            token: token
+            dbUserdata
         })
         })
         .catch(err => res.status(500).json(err));
