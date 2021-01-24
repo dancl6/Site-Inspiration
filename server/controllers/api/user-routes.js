@@ -51,8 +51,12 @@ router.get('/:id/token', (req, res) => {
             res.status(400).json({ message: 'No user found with this id' });
             return
         }
-        res.json(token)
+    res.json(token)
+        // res.json(token)
     })
+    // .then(token => {
+    //     res.json(token)
+    // })
     .catch(err => res.status(500).json(err));
 });
 
@@ -80,9 +84,7 @@ router.post('/', (req, res) => {
     //    let userArray = [dbUserData, token]
     
         // res.json(userArray)})
-        res.json({
-            dbUserdata
-        })
+        res.json(dbUserdata)
         })
         .catch(err => res.status(500).json(err));
     });
