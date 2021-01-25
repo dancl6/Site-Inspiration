@@ -149,4 +149,17 @@ router.delete('/:id', (req, res) => {
     .catch(err => res.status(500).json(err));
 });
 
+/**
+ * Post client errors in order to log them
+ */
+router.post('/log-client-errors', (req, res) => {
+    let error           = req.body.error.message;
+    let errorInfo       = req.body.error.stack;
+
+    // send these errors to some service or to a logger (ex: winston)
+    //ex: logger.error(`The app received a new client log: ${error} ${errorInfo}`);
+
+    res.status(200);
+})
+
 module.exports = router
