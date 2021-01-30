@@ -152,7 +152,7 @@ router.delete('/:id', (req, res) => {
 /**
  * Post client errors in order to log them
  */
-router.post('/log-client-errors', (req, res) => {
+router.post('/logger/log-client-errors', (req, res) => {
     let error           = req.body.error.message;
     let errorInfo       = req.body.error.stack;
 
